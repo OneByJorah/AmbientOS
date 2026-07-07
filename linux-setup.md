@@ -10,8 +10,8 @@ Linux has no single wallpaper engine, but the parser and renderer work identical
 ## Install
 
 ```bash
-git clone https://github.com/willytop8/obsidian-live-wallpaper.git
-cd obsidian-live-wallpaper
+git clone https://github.com/OneByJorah/AmbientOS.git
+cd AmbientOS
 npm install
 cp config.example.json config.json
 ```
@@ -84,12 +84,12 @@ Save this as `~/.config/systemd/user/vault-wallpaper.service`:
 
 ```ini
 [Unit]
-Description=Obsidian Live Wallpaper parser
+Description=AmbientOS parser
 After=graphical-session.target
 
 [Service]
 Type=simple
-WorkingDirectory=/home/you/path/to/obsidian-live-wallpaper
+WorkingDirectory=/home/you/path/to/AmbientOS
 ExecStart=/usr/bin/node parser.js
 Restart=on-failure
 RestartSec=5

@@ -422,7 +422,7 @@ function runParserFuzz() {
 }
 
 async function main() {
-  const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'obsidian-live-wallpaper-smoke-'));
+  const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'ambient-os-smoke-'));
   try {
     runRendererCore();
     runParserFuzz();

@@ -1,12 +1,12 @@
 # Contributing
 
-Thanks for your interest in improving Obsidian Live Wallpaper.
+Thanks for your interest in improving AmbientOS.
 
 ## Development setup
 
 ```bash
-git clone https://github.com/willytop8/obsidian-live-wallpaper.git
-cd obsidian-live-wallpaper
+git clone https://github.com/OneByJorah/AmbientOS.git
+cd AmbientOS
 npm install
 cp config.example.json config.json   # then set vaultPath
 npm start

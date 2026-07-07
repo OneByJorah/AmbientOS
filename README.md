@@ -1,6 +1,6 @@
-# Obsidian Live Wallpaper
+# AmbientOS
 
-[![CI](https://github.com/willytop8/obsidian-live-wallpaper/actions/workflows/ci.yml/badge.svg)](https://github.com/willytop8/obsidian-live-wallpaper/actions/workflows/ci.yml)
+[![CI](https://github.com/OneByJorah/AmbientOS/actions/workflows/ci.yml/badge.svg)](https://github.com/OneByJorah/AmbientOS/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Node](https://img.shields.io/badge/node-%E2%89%A518-43853d.svg)](https://nodejs.org)
 
@@ -10,7 +10,7 @@
 
 ![Style showcase](docs/style-showcase.png)
 
-Obsidian Live Wallpaper turns your vault graph into a live desktop backdrop: glowing nodes, tag-colored clusters, curated visual presets, smarter hub labels, and motion that stays atmospheric instead of noisy. It is built to feel like wallpaper first, graph tooling second.
+AmbientOS turns your vault graph into a live desktop backdrop: glowing nodes, tag-colored clusters, curated visual presets, smarter hub labels, and motion that stays atmospheric instead of noisy. It is built to feel like wallpaper first, graph tooling second.
 
 **macOS, Windows, and Linux.**
 
@@ -63,7 +63,7 @@ You'll need [Node.js](https://nodejs.org) (v18+) and a wallpaper host app:
 **Quickest start (no clone):**
 
 ```bash
-npx obsidian-live-wallpaper --vault "/path/to/your/Obsidian/vault"
+npx ambient-os --vault "/path/to/your/Obsidian/vault"
 ```
 
 This writes a small config in the current folder and starts the server. Then
@@ -72,8 +72,8 @@ point your wallpaper host at the printed `http://127.0.0.1:3000` URL.
 **Or clone it** (best if you want to customize or contribute):
 
 ```bash
-git clone https://github.com/willytop8/obsidian-live-wallpaper.git
-cd obsidian-live-wallpaper
+git clone https://github.com/OneByJorah/AmbientOS.git
+cd AmbientOS
 npm install
 cp config.example.json config.json
 ```
