@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+  ambientos:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "9503:80"
+    restart: unless-stopped
