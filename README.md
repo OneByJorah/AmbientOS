@@ -1,4 +1,4 @@
-# AmbientOS
+# 🔧 AmbientOS
 
 [![CI](https://github.com/OneByJorah/AmbientOS/actions/workflows/ci.yml/badge.svg)](https://github.com/OneByJorah/AmbientOS/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
@@ -6,13 +6,31 @@
 
 > Turn your Obsidian vault into an ambient desktop scene instead of another hidden sidebar.
 
-![Demo](docs/demo.gif)
+**AmbientOS renders your Obsidian vault graph as a live desktop wallpaper**: glowing nodes, tag-colored clusters, 18 curated visual presets, smarter hub labels, and motion that stays atmospheric instead of noisy. Built to feel like wallpaper first, graph tooling second. **macOS, Windows, and Linux.**
 
-![Style showcase](docs/style-showcase.png)
+![Main dashboard](docs/screenshots/main-dashboard.png)
 
-AmbientOS turns your vault graph into a live desktop backdrop: glowing nodes, tag-colored clusters, curated visual presets, smarter hub labels, and motion that stays atmospheric instead of noisy. It is built to feel like wallpaper first, graph tooling second.
+## ✨ Features
 
-**macOS, Windows, and Linux.**
+- **Live wallpaper** — your vault graph rendered fullscreen on a d3 force simulation, refreshing as you edit notes
+- **18 curated presets** — one-click looks spanning five visual axes (Ambient, Neon, Blueprint, Parchment, Synthwave, Abyss, and more)
+- **Tag-aware coloring & clustering** — same-tag notes gravitate together, with soft color halos over tag territories
+- **Smart hub labels** — surfaces your most-connected notes without cluttering the scene
+- **Large-vault-aware scaling** — automatically backs off particles, glow, and labels as your vault grows (tested to 35,000+ nodes)
+- **Ghost nodes** — unresolved `[[wikilinks]]` show as dimmer nodes so you can see planned connections
+- **Incremental parsing** — after first launch, only changed notes are re-parsed
+- **Offline** — D3 is vendored locally; works without network after `npm install`
+- **Cross-platform** — macOS (Plash), Windows (Lively), Linux (KDE/GNOME/tiling WMs)
+
+## 📸 Screenshots
+
+| | |
+|:--:|:--:|
+| ![Ambient](docs/screenshots/preset-neon.png)<br>Neon preset | ![Mist](docs/screenshots/preset-mist.png)<br>Mist preset |
+| ![Synthwave](docs/screenshots/preset-synthwave.png)<br>Synthwave preset | ![Abyss](docs/screenshots/preset-abyss.png)<br>Abyss preset |
+
+![Settings page](docs/screenshots/settings-page.png)
+*The settings page — live preview plus every visual toggle.*
 
 ## Why
 
@@ -106,6 +124,18 @@ For autostart and troubleshooting, see the platform-specific guides:
 - [`windows-setup.md`](windows-setup.md)
 - [`linux-setup.md`](linux-setup.md)
 
+## 🐳 Docker
+
+The Docker image serves the static renderer as a preview (built on `nginx:1.27-alpine`, non-root, with a `/` healthcheck). It does **not** run the Node `parser.js` backend or watch your vault — point it at a `graph.json` you generate separately, or use it to preview presets on the loopback interface.
+
+```bash
+docker build -t ambientos .
+docker run -d --name ambientos -p 9503:80 ambientos
+# open http://localhost:9503  (settings at http://localhost:9503/settings.html)
+```
+
+The bundled `docker-compose.yml` maps `9503:80` and restarts unless stopped.
+
 ## How it works
 
 Three layers, each ignorant of the others:
@@ -184,7 +214,7 @@ Two ways to color nodes, set with `nodeColorMode`:
 
 ### Presets
 
-Ten one-click looks, each a meaningfully different scene rather than a palette swap:
+Eighteen one-click looks, each a meaningfully different scene rather than a palette swap:
 
 - **Plain** — minimal, still, mono accent
 - **Ambient** — the default polychrome drift with hubs
@@ -217,6 +247,27 @@ If you want a tighter ceiling, set `maxRenderedNodes` — least-connected notes 
 
 The first launch reads your whole vault. After that, normal edits only rebuild the parts of the graph that actually changed, so quick note updates do not trigger a full vault re-scan. Rapid saves are grouped together, and the wallpaper refreshes automatically as those changes land.
 
-## License
+## 🧪 Testing
 
-MIT. Built by [William Ricchiuti](https://william-ricchiuti.com).
+The project ships a dependency-free smoke suite:
+
+```bash
+npm test          # runs the parser/renderer-core smoke test + headless render test
+npm run smoke     # parser + graph-building assertions only
+npm run smoke:render   # boots the server and renders presets in headless Chrome
+```
+
+`smoke:render` auto-detects Chrome/Chromium (or set `CHROME=/path/to/chrome`); it skips cleanly if no browser is found.
+
+## 🤝 Contributing
+
+Issues and PRs welcome — see [`CONTRIBUTING.md`](CONTRIBUTING.md). Run `npm test` before submitting.
+
+## 📄 License
+
+MIT — see [LICENSE](LICENSE).
+
+## 👤 Author
+
+Built by **Jhonattan L. Jimenez** ([@OneByJorah](https://github.com/OneByJorah)) under **JorahOne LLC**.
+More projects: [github.com/OneByJorah](https://github.com/OneByJorah)
