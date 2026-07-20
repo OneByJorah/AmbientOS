@@ -3,3 +3,5 @@ config.json
 graph.json
 .DS_Store
 Claude-Sessions/
+srv.log
+*.log
