@@ -815,9 +815,9 @@ function startApp(options = {}) {
     console.error('watcher error:', e.message);
   });
 
-  server.listen(state.cfg.port, '100.66.142.21', () => {
-    console.log(`wallpaper:  http://100.66.142.21:${state.cfg.port}`);
-    console.log(`settings:   http://100.66.142.21:${state.cfg.port}/settings.html`);
+  server.listen(state.cfg.port, '127.0.0.1', () => {
+    console.log(`wallpaper:  http://127.0.0.1:${state.cfg.port}`);
+    console.log(`settings:   http://127.0.0.1:${state.cfg.port}/settings.html`);
   });
 
   server.on('error', e => {
