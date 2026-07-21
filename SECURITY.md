@@ -1,33 +1,31 @@
-# Security
+# Security Policy
 
-## Threat model
+## Supported Versions
 
-Obsidian Live Wallpaper runs entirely on your machine. The Node process:
+| Version | Supported |
+|---------|-----------|
+| Latest  | ✅ |
+| Older   | ❌ |
 
-- binds its HTTP server to the loopback interface only (`127.0.0.1`), so it is
-  not reachable from other devices on your network;
-- reads Markdown from the vault path you configure and writes only `graph.json`
-  and `config.json` inside the project directory;
-- serves a fixed allowlist of static files plus a small JSON/SSE API, and
-  validates every config write against a strict schema before persisting it;
-- emits only node ids, labels, tags, link structure, and modified-times in
-  `graph.json` — never note contents.
+## Reporting a Vulnerability
 
-There is no telemetry and no outbound network access; after `npm install` the
-renderer works offline (D3 is vendored locally).
+Please do **not** open public GitHub issues for security vulnerabilities.
 
-## Reporting a vulnerability
+- Email: **info@jorahone.com**
+- Or use GitHub Security Advisories
 
-If you find a security issue, please report it privately rather than opening a
-public issue:
+Please include:
 
-- Use GitHub's **Report a vulnerability** (Security → Advisories) on the
-  repository, or
-- email the maintainer listed in `package.json`.
+- Type of issue and affected files
+- Steps to reproduce
+- Suggested impact
+- Proof-of-concept if available
 
-Please include reproduction steps and the affected version. You can expect an
-acknowledgement within a few days.
+We will acknowledge receipt within a few days.
 
-## Supported versions
+## Security Model
 
-The latest released version receives fixes. Older versions are not maintained.
+- The server binds to the loopback interface (`127.0.0.1`) by default.
+- No telemetry or outbound network access is performed.
+- Only file metadata is exposed in `graph.json` — never note contents.
+- Config writes are validated against a strict schema before persisting.
