@@ -1,60 +1,41 @@
-# Contributing
+# Contributing to JorahOne Projects
 
-Thanks for your interest in improving AmbientOS.
+Thank you for your interest in contributing! This document provides guidelines for contributing to our projects.
 
-## Development setup
+## How to Contribute
 
-```bash
-git clone https://github.com/OneByJorah/AmbientOS.git
-cd AmbientOS
-npm install
-cp config.example.json config.json   # then set vaultPath
-npm start
-```
+1. **Fork the Repository** — Create a fork of the project on GitHub.
+2. **Create a Branch** — Create a feature branch from `main`.
+3. **Make Changes** — Implement your changes with clear commit messages.
+4. **Test** — Ensure your changes work correctly.
+5. **Submit a PR** — Open a pull request with a clear description.
 
-The architecture is three independent layers (see the README): `parser.js`
-(Node watcher + HTTP server), `index.html` (d3 renderer on a canvas), and
-`worker.js` (the force simulation, off the main thread). Keep them decoupled —
-the renderer only knows about `graph.json`, `/api/config`, and the SSE stream.
-
-## Tests
+## Development Setup
 
 ```bash
-npm test          # parser/server smoke + renderer smoke
-npm run smoke         # parser & HTTP handler only (no browser needed)
-npm run smoke:render  # renderer in headless Chrome (skips if no Chrome found)
+git clone https://github.com/your-username/PROJECT.git
+cd PROJECT
+# Follow project-specific setup instructions
 ```
 
-`npm run smoke:render` looks for Chrome/Chromium automatically. To point it at a
-specific binary, set `CHROME=/path/to/chrome`. CI runs the full suite on Node
-18, 20, and 22.
+## Code Standards
 
-Please add or update a smoke assertion when you change parser behavior, the
-config schema, or the render pipeline.
+- Follow existing code style and conventions
+- Write clear, descriptive commit messages
+- Add comments for complex logic
+- Update documentation as needed
 
-## Working with presets
+## Pull Request Guidelines
 
-Presets live in `presets.json`. Each must be placeable on the five theme axes in
-`docs/theme-axes.md` and should differ from existing presets on at least two
-axes. After adding or changing a preset, regenerate its thumbnail:
+- Provide a clear PR title and description
+- Reference any related issues
+- Include screenshots for UI changes
+- Ensure all checks pass
 
-```bash
-npm start                                   # in one terminal
-node scripts/screenshot-presets.js new      # in another
-```
+## Code of Conduct
 
-Thumbnails are written to `docs/presets/<name>.png` and shown in the settings
-preset picker.
+Please review our [Code of Conduct](CODE_OF_CONDUCT.md) before contributing.
 
-## Config schema
+## Questions?
 
-All configurable fields are defined once in the `VALIDATORS` table in
-`parser.js`, which drives persisted-config validation, the live patch endpoint,
-and the `/api/defaults` response. Add new options there (and to the `DEFAULTS`
-block in both `parser.js` and `index.html`) rather than scattering validation.
-
-## Pull requests
-
-- Keep changes focused and described.
-- Run `npm test` before opening the PR.
-- For visual changes, include a before/after screenshot.
+Open an issue or contact **info@jorahone.com**.

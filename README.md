@@ -1,84 +1,142 @@
-# AmbientOS
+<div align="center">
+  <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white">
+  <img src="https://img.shields.io/badge/Canvas-FF6B6B?style=for-the-badge&logo=html5&logoColor=white">
+  <img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge">
+  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white">
+</div>
 
-Turn your Obsidian vault graph into a live desktop wallpaper — 18 curated presets, tag-aware clusters, large-vault scaling.
+<br>
 
-![status](https://img.shields.io/badge/status-active-FFB300?style=flat-square)
-![language](https://img.shields.io/badge/node.js-18+-0d0d0c?style=flat-square)
-![license](https://img.shields.io/badge/license-MIT-FFB300?style=flat-square)
+<div align="center">
+  <h1>AmbientOS</h1>
+  <p><strong>Obsidian Vault as Live Desktop Wallpaper</strong></p>
+  <p>Turn your Obsidian knowledge graph into an ambient desktop scene with 18 presets.</p>
+  <p>
+    <a href="#features">Features</a> •
+    <a href="#quick-start">Quick Start</a> •
+    <a href="#presets">Presets</a> •
+    <a href="#contributing">Contributing</a>
+  </p>
+</div>
 
-## Overview
+---
 
-AmbientOS transforms your Obsidian vault's knowledge graph into an ambient desktop backdrop — glowing nodes, tag-colored clusters, and motion that stays atmospheric instead of noisy. Built to feel like wallpaper first, graph tooling second. Works on macOS (Plash), Windows (Lively Wallpaper), and Linux (KDE/GNOME via Hidamari).
+## Screenshot
+
+![AmbientOS Wallpaper](docs/screenshot.png)
+*Obsidian vault graph rendered as an ambient desktop wallpaper.*
 
 ## Features
 
-- 18 curated visual presets with customizable settings
-- Tag-aware cluster halos for visual territory mapping
-- Smarter hub labels that surface important nodes without clutter
-- Large-vault-aware scaling for dense graphs (1000+ nodes)
-- Incremental parsing after initial vault scan
-- Local-only HTTP server binding to `127.0.0.1` by default
-- Real-time file watching via chokidar
-- Settings UI at `http://127.0.0.1:3000/settings.html`
+- **Knowledge Graph Visualization** — Render your Obsidian vault as an interactive graph.
+- **18 Presets** — Beautiful pre-configured themes and styles.
+- **Tag Clusters** — Group notes by tags for visual organization.
+- **Large Vault Scaling** — Optimized performance for 10,000+ notes.
+- **Cross-Platform** — macOS, Windows, and Linux support.
+- **Real-Time Updates** — Auto-refresh when vault changes.
+- **Customizable** — Adjust colors, physics, and layout options.
+- **Lightweight** — Minimal CPU and memory usage.
 
-## Architecture / Tech Stack
+## Quick Start
 
-- **Runtime**: Node.js 18+
-- **Renderer**: D3.js (vendored locally)
-- **File Watching**: chokidar
-- **Packaging**: Docker (nginx:alpine), npm (`npx ambient-os`)
-- **Platforms**: macOS, Windows, Linux
-
-## Installation
+### macOS / Windows / Linux
 
 ```bash
-# Quickest start (no clone)
-npx ambient-os --vault "/path/to/your/Obsidian/vault"
-
-# Clone for customizing
 git clone https://github.com/OneByJorah/AmbientOS.git
 cd AmbientOS
-npm install
-cp config.example.json config.json
-# Edit config.json — set vaultPath and host
-npm start
-```
 
-Point your wallpaper host at `http://127.0.0.1:3000`.
+npm install
+npm run setup  # Select your Obsidian vault
+npm start      # Launch the wallpaper
+```
 
 ### Docker
 
 ```bash
 docker compose up -d
-# Open http://localhost:9503
-```
-
-## Usage
-
-```bash
-# Start with specific vault
-npx ambient-os --vault ~/Documents/MyVault
-
-# Start with custom port
-npx ambient-os --vault ~/Documents/MyVault --port 4000
-
-# Open settings UI
-open http://127.0.0.1:3000/settings.html
 ```
 
 ## Configuration
 
-| Option | Default | Description |
-|--------|---------|-------------|
-| `vaultPath` | — | Path to Obsidian vault (required) |
-| `port` | `3000` | HTTP server port |
-| `host` | `127.0.0.1` | Bind address |
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `VAULT_PATH` | — | Path to your Obsidian vault |
+| `PRESET` | `default` | Theme preset name |
+| `POLL_INTERVAL` | `5000` | Vault refresh interval (ms) |
+| `PORT` | `3210` | Web interface port |
 
-See `config.example.json` for full options.
+### Available Presets
+
+| Preset | Description |
+|--------|-------------|
+| `default` | Clean, minimal graph view |
+| `cyberpunk` | Neon-lit futuristic theme |
+| `forest` | Nature-inspired green palette |
+| `ocean` | Deep blue aquatic theme |
+| `sunset` | Warm orange and pink hues |
+| `midnight` | Dark mode with subtle glow |
+| `retro` | 80s-inspired pixel aesthetic |
+| `minimal` | Ultra-clean monochrome |
+| `and more...` | 18 total presets |
+
+## Architecture
+
+```
+Obsidian Vault ──File Watcher──▶ Node.js Server ──Canvas──▶ Desktop Wallpaper
+                                        │
+                                        ├──▶ Graph Renderer
+                                        ├──▶ Tag Cluster Engine
+                                        └──▶ Preset Manager
+```
+
+## Project Structure
+
+```
+AmbientOS/
+├── src/
+│   ├── index.js           # Main entry point
+│   ├── vault-scanner.js   # Obsidian vault parser
+│   ├── graph-renderer.js  # Canvas graph rendering
+│   ├── presets/            # Theme preset configurations
+│   └── utils/
+├── public/
+│   ├── index.html         # Web configuration UI
+│   └── app.js             # Frontend logic
+├── presets.json            # All preset definitions
+├── package.json
+├── docker-compose.yml     # Docker deployment
+└── .env.example           # Configuration template
+```
+
+## Platform-Specific Setup
+
+### macOS
+- Uses native window for wallpaper
+- Requires Accessibility permissions
+
+### Windows
+- Uses Electron for wallpaper integration
+- Works with Wallpaper Engine
+
+### Linux
+- X11: Direct window embedding
+- Wayland: Via layer-shell protocol
+
+## Contributing
+
+Contributions are welcome. Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) for community standards.
+
+## Security
+
+For security concerns, see [SECURITY.md](SECURITY.md). Please report vulnerabilities to **info@jorahone.com** — do not use public issues.
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT © Jhonattan L. Jimenez
 
 ---
-Part of the JorahOne / J1 ecosystem — ambient visualization for Obsidian knowledge graphs.
+
+<div align="center">
+  <p>Obsidian vault as ambient desktop wallpaper.</p>
+  <p><a href="https://github.com/OneByJorah">@OneByJorah</a></p>
+</div>
