@@ -1,100 +1,84 @@
 # AmbientOS
 
-![CI](https://github.com/OneByJorah/AmbientOS/actions/workflows/ci.yml/badge.svg)
-![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)
-![Node](https://img.shields.io/badge/node-%E2%89%A518-43853d.svg)
+Turn your Obsidian vault graph into a live desktop wallpaper — 18 curated presets, tag-aware clusters, large-vault scaling.
 
-> Turn your Obsidian vault into an ambient desktop scene instead of another hidden sidebar.
+![status](https://img.shields.io/badge/status-active-FFB300?style=flat-square)
+![language](https://img.shields.io/badge/node.js-18+-0d0d0c?style=flat-square)
+![license](https://img.shields.io/badge/license-MIT-FFB300?style=flat-square)
 
-AmbientOS turns your vault graph into a live desktop backdrop: glowing nodes, tag-colored clusters, curated visual presets, smarter hub labels, and motion that stays atmospheric instead of noisy. It is built to feel like wallpaper first, graph tooling second.
+## Overview
 
-**macOS, Windows, and Linux.**
+AmbientOS transforms your Obsidian vault's knowledge graph into an ambient desktop backdrop — glowing nodes, tag-colored clusters, and motion that stays atmospheric instead of noisy. Built to feel like wallpaper first, graph tooling second. Works on macOS (Plash), Windows (Lively Wallpaper), and Linux (KDE/GNOME via Hidamari).
 
 ## Features
 
-- Curated presets instead of raw sliders only
-- Soft cluster halos for tag territories
-- Smarter labels that surface hubs without clutter
-- Large-vault-aware scaling so dense graphs stay elegant
-- Incremental parsing after the first vault scan
-- Local-only HTTP server that binds to `127.0.0.1` by default
+- 18 curated visual presets with customizable settings
+- Tag-aware cluster halos for visual territory mapping
+- Smarter hub labels that surface important nodes without clutter
+- Large-vault-aware scaling for dense graphs (1000+ nodes)
+- Incremental parsing after initial vault scan
+- Local-only HTTP server binding to `127.0.0.1` by default
+- Real-time file watching via chokidar
+- Settings UI at `http://127.0.0.1:3000/settings.html`
 
-## Tech Stack
+## Architecture / Tech Stack
 
-- Node.js 18+
-- `chokidar` for file watching
-- D3 (vendored locally) for rendering
+- **Runtime**: Node.js 18+
+- **Renderer**: D3.js (vendored locally)
+- **File Watching**: chokidar
+- **Packaging**: Docker (nginx:alpine), npm (`npx ambient-os`)
+- **Platforms**: macOS, Windows, Linux
 
 ## Installation
 
-You'll need [Node.js](https://nodejs.org) (v18+) and a wallpaper host app:
-
-- **macOS**: [Plash](https://apps.apple.com/us/app/plash/id1494023538)
-- **Windows**: [Lively Wallpaper](https://www.rocksdanister.com/lively/)
-- **Linux**: KDE (native), GNOME via [Hidamari](https://github.com/jeffshee/hidamari), or `xwinwrap`
-
-### Quickest start (no clone)
-
 ```bash
+# Quickest start (no clone)
 npx ambient-os --vault "/path/to/your/Obsidian/vault"
-```
 
-Point your wallpaper host at the printed `http://127.0.0.1:3000` URL.
-
-### Clone it (best for customizing or contributing)
-
-```bash
+# Clone for customizing
 git clone https://github.com/OneByJorah/AmbientOS.git
 cd AmbientOS
 npm install
 cp config.example.json config.json
-# Edit config.json and set vaultPath and host
+# Edit config.json — set vaultPath and host
 npm start
 ```
 
-Open `http://127.0.0.1:3000/settings.html` to customize visuals. `vaultPath`, `host`, and `port` stay in `config.json`.
+Point your wallpaper host at `http://127.0.0.1:3000`.
+
+### Docker
+
+```bash
+docker compose up -d
+# Open http://localhost:9503
+```
+
+## Usage
+
+```bash
+# Start with specific vault
+npx ambient-os --vault ~/Documents/MyVault
+
+# Start with custom port
+npx ambient-os --vault ~/Documents/MyVault --port 4000
+
+# Open settings UI
+open http://127.0.0.1:3000/settings.html
+```
 
 ## Configuration
 
 | Option | Default | Description |
 |--------|---------|-------------|
-| `vaultPath` | — | Absolute path to your Obsidian vault |
-| `host` | `127.0.0.1` | HTTP server bind address |
-| `port` | `3000` | Local HTTP port |
-| `accent` | `#7c5cff` | Default node and edge color |
-| `background` | `#0a0a0f` | Canvas background color |
-| `refreshMs` | `5000` | Fallback refresh interval in ms |
-| `nodeColorMode` | `"tag"` | Node coloring: `tag`, `age`, or `folder` |
-| `motionMode` | `"balanced"` | Ambient movement profile |
-| `maxRenderedNodes` | `5000` | Hard cap on rendered nodes |
+| `vaultPath` | — | Path to Obsidian vault (required) |
+| `port` | `3000` | HTTP server port |
+| `host` | `127.0.0.1` | Bind address |
 
-See `config.example.json` for all options.
-
-## Architecture
-
-```
-parser.js  →  graph.json  →  index.html (D3 renderer)  →  wallpaper host
-```
-
-- `parser.js` watches your vault and serves the renderer.
-- `index.html` loads `graph.json` and runs a d3 force simulation.
-- The wallpaper host renders the page as your desktop background.
-
-## Development
-
-```bash
-npm install
-npm test    # parser smoke + renderer smoke
-```
-
-## Contributing
-
-Please see [CONTRIBUTING.md](CONTRIBUTING.md).
-
-## Security
-
-Report vulnerabilities privately to **info@jorahone.com**. See [SECURITY.md](SECURITY.md).
+See `config.example.json` for full options.
 
 ## License
 
-MIT © Jhonattan L. Jimenez
+MIT — see [LICENSE](LICENSE).
+
+---
+Part of the JorahOne / J1 ecosystem — ambient visualization for Obsidian knowledge graphs.
