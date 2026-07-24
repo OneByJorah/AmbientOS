@@ -1,14 +1,19 @@
 ---
 name: Feature request
-about: Suggest an idea (a preset, a setting, a behavior)
+about: Suggest an idea or improvement
+title: '[FEATURE] '
 labels: enhancement
+assignees: ''
 ---
 
-**What you'd like**
-A clear description of the feature or preset idea.
+**Is your feature request related to a problem?**
+A clear and concise description of the problem.
 
-**Why**
-What does it make better? If it's a preset, which point in the five theme axes
-(see `docs/theme-axes.md`) does it occupy?
+**Describe the solution you'd like**
+What should happen?
 
-**Alternatives considered**
+**Describe alternatives you've considered**
+Other approaches or workarounds.
+
+**Additional context**
+Mockups, references, or related issues.

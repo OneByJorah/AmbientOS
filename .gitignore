@@ -3,3 +3,6 @@ config.json
 graph.json
 .DS_Store
 Claude-Sessions/
+
+# OneByJorah portfolio tooling
+.venv-screenshot/

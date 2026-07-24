@@ -1,30 +1,24 @@
 <div align="center">
-  <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white">
-  <img src="https://img.shields.io/badge/Canvas-FF6B6B?style=for-the-badge&logo=html5&logoColor=white">
-  <img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge">
-  <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white">
-</div>
 
-<br>
+![AmbientOS banner](docs/assets/banner.svg)
 
-<div align="center">
-  <h1>AmbientOS</h1>
-  <p><strong>Obsidian Vault as Live Desktop Wallpaper</strong></p>
-  <p>Turn your Obsidian knowledge graph into an ambient desktop scene with 18 presets.</p>
-  <p>
-    <a href="#features">Features</a> •
-    <a href="#quick-start">Quick Start</a> •
-    <a href="#presets">Presets</a> •
-    <a href="#contributing">Contributing</a>
-  </p>
+# AmbientOS
+
+Turn your Obsidian vault graph into a live desktop wallpaper
+
+![License](https://img.shields.io/badge/license-MIT-brightgreen)
+![Language](https://img.shields.io/badge/language-HTML-blue)
 </div>
 
 ---
 
-## Screenshot
+<p align="center">
+  <img src="docs/assets/screenshot.png" alt="AmbientOS preview" width="90%">
+</p>
 
-![AmbientOS Wallpaper](docs/screenshot.png)
-*Obsidian vault graph rendered as an ambient desktop wallpaper.*
+<br>
+
+---
 
 ## Features
 
@@ -136,7 +130,18 @@ MIT © Jhonattan L. Jimenez
 
 ---
 
-<div align="center">
-  <p>Obsidian vault as ambient desktop wallpaper.</p>
-  <p><a href="https://github.com/OneByJorah">@OneByJorah</a></p>
-</div>
+## 🤝 Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md). All contributions follow the [Code of Conduct](CODE_OF_CONDUCT.md).
+
+## 🔒 Security
+
+Found a vulnerability? Please follow our [Security Policy](SECURITY.md) and report privately to `security@jorahone.com`.
+
+## 📄 License
+
+[MIT License](LICENSE) © Jhonattan L. Jimenez (OneByJorah)
+
+---
+
+<p align="center">Built with 🌴 by <a href="https://github.com/OneByJorah">OneByJorah</a> · <a href="https://jorahone.com">jorahone.com</a></p>

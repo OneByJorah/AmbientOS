@@ -1,26 +1,30 @@
 ---
 name: Bug report
-about: Something isn't working
+about: Report a problem or unexpected behavior
+title: '[BUG] '
 labels: bug
+assignees: ''
 ---
 
-**What happened**
-A clear description of the bug.
+**Describe the bug**
+A clear and concise description of what the bug is.
 
-**Steps to reproduce**
-1.
-2.
+**To Reproduce**
+Steps to reproduce the behavior:
+1. Clone and run `...`
+2. Configure `...`
+3. See error
 
 **Expected behavior**
+What you expected to happen.
+
+**Screenshots / logs**
+If applicable, add screenshots or log output.
 
 **Environment**
-- OS: (macOS / Windows / Linux + version)
-- Wallpaper host: (Plash / Lively / other)
-- Node version: (`node -v`)
-- Obsidian Live Wallpaper version:
-- Approx. vault size: (notes / links)
-- Preset in use:
+- OS:
+- Browser/runtime version:
+- Project version or branch:
 
-**Screenshot / console output**
-If relevant, attach a screenshot or the server console output. For renderer
-issues, open the wallpaper URL with `?perf=1` and include the HUD numbers.
+**Additional context**
+Add any other context here.
