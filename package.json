@@ -1,69 +1,33 @@
 {
-  "name": "ambient-os",
+  "name": "ambientos",
   "version": "1.0.0",
-  "description": "Your Obsidian vault graph as a live desktop wallpaper",
-  "author": "William Ricchiuti",
-  "homepage": "https://github.com/OneByJorah/AmbientOS#readme",
+  "description": "Ambient operating system \u2014 desktop environment with dynamic theming, workflow automation, and system monitoring.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo 'No tests yet' && exit 0"
+  },
+  "keywords": [
+    "ambientos",
+    "docker",
+    "self-hosted",
+    "jorahone"
+  ],
+  "author": "OneByJorah <info@jorahone.com>",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/OneByJorah/AmbientOS.git"
   },
+  "bugs": {
+    "url": "https://github.com/OneByJorah/AmbientOS/issues"
+  },
+  "homepage": "https://github.com/OneByJorah/AmbientOS#readme",
   "files": [
-    "LICENSE",
+    "dist/",
     "README.md",
-    "CHANGELOG.md",
-    "CONTRIBUTING.md",
-    "SECURITY.md",
-    "config.example.json",
-    "index.html",
-    "settings.html",
-    "parser.js",
-    "worker.js",
-    "renderer-core.js",
-    "presets.json",
-    "bin/cli.js",
-    "linux-setup.md",
-    "macos-setup.md",
-    "windows-setup.md",
-    "vendor/",
-    "scripts/smoke.js",
-    "scripts/smoke-render.js",
-    "scripts/find-chrome.js",
-    "scripts/screenshot-presets.js",
-    "docs/presets/",
-    "docs/perf-roadmap.md",
-    "docs/theme-audit.md",
-    "docs/theme-axes.md",
-    "docs/finalization.md",
-    "docs/classic-preview.png",
-    "docs/settings-preview.png",
-    "docs/style-showcase.png",
-    "docs/wallpaper-preview.png"
+    "LICENSE"
   ],
-  "keywords": [
-    "obsidian",
-    "wallpaper",
-    "graph",
-    "desktop",
-    "d3",
-    "live-wallpaper"
-  ],
-  "main": "parser.js",
-  "bin": {
-    "ambient-os": "bin/cli.js",
-    "olw": "bin/cli.js"
-  },
-  "scripts": {
-    "start": "node parser.js",
-    "smoke": "node scripts/smoke.js",
-    "smoke:render": "node scripts/smoke-render.js",
-    "test": "npm run smoke && npm run smoke:render"
-  },
-  "engines": {
-    "node": ">=18"
-  },
-  "license": "MIT",
-  "dependencies": {
-    "chokidar": "^3.6.0"
+  "publishConfig": {
+    "access": "public"
   }
 }
