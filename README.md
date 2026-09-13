@@ -4,144 +4,139 @@
 
 # AmbientOS
 
-Turn your Obsidian vault graph into a live desktop wallpaper
+**Turn your Obsidian vault graph into a live desktop wallpaper** — for anyone who wants their knowledge base on screen all day.
 
-![License](https://img.shields.io/badge/license-MIT-brightgreen)
-![Language](https://img.shields.io/badge/language-HTML-blue)
+<a href="https://github.com/OneByJorah/AmbientOS/stargazers"><img src="https://img.shields.io/github/stars/OneByJorah/AmbientOS?style=flat-square" alt="Stars"></a>
+<a href="https://github.com/OneByJorah/AmbientOS/commits"><img src="https://img.shields.io/github/last-commit/OneByJorah/AmbientOS?style=flat-square" alt="Last commit"></a>
+<a href="LICENSE"><img src="https://img.shields.io/github/license/OneByJorah/AmbientOS?style=flat-square" alt="License"></a>
+<img src="https://img.shields.io/badge/node-%3E%3D18-339933?style=flat-square&logo=node.js&logoColor=white" alt="Node.js">
+<img src="https://img.shields.io/badge/D3.js-graph-f9a03c?style=flat-square&logo=d3.js&logoColor=white" alt="D3.js">
+
 </div>
 
----
+![AmbientOS screenshot](docs/assets/screenshot.png)
 
-<p align="center">
-  <img src="docs/assets/screenshot.png" alt="AmbientOS preview" width="90%">
-</p>
+## What This Is
 
-<br>
-
----
-
-## Features
-
-- **Knowledge Graph Visualization** — Render your Obsidian vault as an interactive graph.
-- **18 Presets** — Beautiful pre-configured themes and styles.
-- **Tag Clusters** — Group notes by tags for visual organization.
-- **Large Vault Scaling** — Optimized performance for 10,000+ notes.
-- **Cross-Platform** — macOS, Windows, and Linux support.
-- **Real-Time Updates** — Auto-refresh when vault changes.
-- **Customizable** — Adjust colors, physics, and layout options.
-- **Lightweight** — Minimal CPU and memory usage.
+Your notes are a living graph, but you only see it when Obsidian is open. AmbientOS parses a vault into nodes and edges and renders it continuously behind your desktop, refreshing as files change. It ships with 18 hand-tuned presets — from Plain and Ink to Synthwave and Vapor — and a settings UI for tuning physics, glow, depth of field, and clustering without touching config files.
 
 ## Quick Start
-
-### macOS / Windows / Linux
 
 ```bash
 git clone https://github.com/OneByJorah/AmbientOS.git
 cd AmbientOS
-
 npm install
-npm run setup  # Select your Obsidian vault
-npm start      # Launch the wallpaper
+npm start
 ```
+
+Open **http://localhost:3000** (or run `npx ambient-os --vault "/path/to/Vault"` to launch without cloning). Point your wallpaper host (Plash, Lively, etc.) at the printed URL.
 
 ### Docker
 
 ```bash
 docker compose up -d
+# Serves the static UI on http://localhost:9503
 ```
 
-## Configuration
+## Features
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `VAULT_PATH` | — | Path to your Obsidian vault |
-| `PRESET` | `default` | Theme preset name |
-| `POLL_INTERVAL` | `5000` | Vault refresh interval (ms) |
-| `PORT` | `3210` | Web interface port |
-
-### Available Presets
-
-| Preset | Description |
-|--------|-------------|
-| `default` | Clean, minimal graph view |
-| `cyberpunk` | Neon-lit futuristic theme |
-| `forest` | Nature-inspired green palette |
-| `ocean` | Deep blue aquatic theme |
-| `sunset` | Warm orange and pink hues |
-| `midnight` | Dark mode with subtle glow |
-| `retro` | 80s-inspired pixel aesthetic |
-| `minimal` | Ultra-clean monochrome |
-| `and more...` | 18 total presets |
+- **Knowledge graph wallpaper** — renders vault notes as an animated force-directed graph.
+- **18 presets** — Plain, Ambient, Neon, Dense, Blueprint, Parchment, Botanical, Constellation, Topographic, Contrast, Synthwave, Mist, Crystalline, Confetti, Abyss, Ink, Library, and Vapor.
+- **Tag clustering** — groups notes by tag with optional cluster halos.
+- **Large-vault scaling** — auto-scales rendering for big vaults (default cap of 5,000 rendered nodes).
+- **Real-time updates** — `chokidar` watches the vault and re-parses on change (`refreshMs`, default 5000).
+- **Settings UI** — live tuning of animation, glow, particles, labels, edge style, and color mode.
+- **Cross-platform** — dedicated setup guides for macOS (Plash), Windows, and Linux.
 
 ## Architecture
 
 ```
-Obsidian Vault ──File Watcher──▶ Node.js Server ──Canvas──▶ Desktop Wallpaper
-                                        │
-                                        ├──▶ Graph Renderer
-                                        ├──▶ Tag Cluster Engine
-                                        └──▶ Preset Manager
+Obsidian Vault ──chokidar watcher──▶ Node.js parser ──HTTP──▶ Wallpaper renderer (D3)
+                                          │
+                                          ├──▶ Graph builder (nodes / links / tags)
+                                          ├──▶ Tag cluster engine
+                                          └──▶ Preset manager
 ```
+
+**Components**
+
+- `parser.js` — parses the vault, serves the app, watches for changes, and writes `graph.json`.
+- `index.html` — the D3 graph renderer itself (the wallpaper surface).
+- `settings.html` — live settings UI.
+- `bin/cli.js` — `npx ambient-os` / `olw` entry point.
+
+## Configuration
+
+Settings live in `config.json` (see `config.example.json`). Key fields:
+
+| Field | Default | Description |
+|-------|---------|-------------|
+| `vaultPath` | — | Path to your Obsidian vault |
+| `port` | `3000` | Local HTTP port |
+| `refreshMs` | `5000` | Vault refresh interval (ms) |
+| `motionMode` | `balanced` | Animation intensity (`calm` / `balanced` / `showcase`) |
+| `maxRenderedNodes` | `5000` | Node cap for large vaults |
+| `clusterByTag` | `true` | Group nodes by tag |
+| `edgeStyle` | `line` | Edge rendering (`line` / `curve`) |
+| `nodeColorMode` | `tag` | Node coloring mode |
+| `ignorePaths` | `[".obsidian","templates","_archive"]` | Paths excluded from parsing |
+
+> [!TIP]
+> Run `npx ambient-os --vault <path> --port <n>` to scaffold a config and start immediately; open `/settings.html` for live customization.
+
+## Platform Setup
+
+| Platform | Wallpaper host | Notes |
+|----------|---------------|-------|
+| macOS | Plash | Disable browsing mode so clicks pass through; see [macos-setup.md](macos-setup.md) |
+| Windows | Electron / Wallpaper Engine | See [windows-setup.md](windows-setup.md) |
+| Linux | X11 or Wayland | See [linux-setup.md](linux-setup.md) |
 
 ## Project Structure
 
 ```
 AmbientOS/
-├── src/
-│   ├── index.js           # Main entry point
-│   ├── vault-scanner.js   # Obsidian vault parser
-│   ├── graph-renderer.js  # Canvas graph rendering
-│   ├── presets/            # Theme preset configurations
-│   └── utils/
-├── public/
-│   ├── index.html         # Web configuration UI
-│   └── app.js             # Frontend logic
-├── presets.json            # All preset definitions
-├── package.json
-├── docker-compose.yml     # Docker deployment
-└── .env.example           # Configuration template
+├── index.html                 # Wallpaper renderer (D3)
+├── settings.html              # Live settings UI
+├── parser.js                  # Vault parser + local server
+├── worker.js                  # Graph computation worker
+├── renderer-core.js           # Shared renderer helpers
+├── presets.json               # All 18 preset definitions
+├── config.example.json        # Configuration template
+├── bin/cli.js                 # npx entry point
+├── vendor/d3.min.js           # Bundled D3
+├── scripts/                   # Smoke tests + screenshot helpers
+├── docker-compose.yml
+└── Dockerfile
 ```
 
-## Platform-Specific Setup
+## Use Cases
 
-### macOS
-- Uses native window for wallpaper
-- Requires Accessibility permissions
+1. **Ambient knowledge display** — keep your vault visible as a changing, glanceable backdrop.
+2. **Second-monitor context** — reinforce connections between notes while you work.
+3. **Vault demos** — show off a knowledge graph on a stream or projector.
 
-### Windows
-- Uses Electron for wallpaper integration
-- Works with Wallpaper Engine
+## Tech Stack
 
-### Linux
-- X11: Direct window embedding
-- Wayland: Via layer-shell protocol
+Node.js (≥18) · D3.js · chokidar · HTML/CSS · Docker · nginx (container)
+
+## Screenshots
+
+| View | |
+|---|---|
+| ![main viewport](docs/screenshots/main.viewport.full.png) | ![mobile](docs/screenshots/main.mobile.png) |
+| ![preset examples](docs/presets/synthwave.png) | ![settings UI](docs/settings-preview.png) |
 
 ## Contributing
 
-Contributions are welcome. Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) for community standards.
-
-## Security
-
-For security concerns, see [SECURITY.md](SECURITY.md). Please report vulnerabilities to **info@jorahone.com** — do not use public issues.
+Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md). [Open an issue](https://github.com/OneByJorah/AmbientOS/issues).
 
 ## License
 
-MIT © Jhonattan L. Jimenez
+MIT — see [LICENSE](LICENSE).
 
----
+## Connect
 
-## 🤝 Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md). All contributions follow the [Code of Conduct](CODE_OF_CONDUCT.md).
-
-## 🔒 Security
-
-Found a vulnerability? Please follow our [Security Policy](SECURITY.md) and report privately to `security@jorahone.com`.
-
-## 📄 License
-
-[MIT License](LICENSE) © Jhonattan L. Jimenez (OneByJorah)
-
----
-
-<p align="center">Built with 🌴 by <a href="https://github.com/OneByJorah">OneByJorah</a> · <a href="https://jorahone.com">jorahone.com</a></p>
+- [jorahone.com](https://jorahone.com)
+- [GitHub Org](https://github.com/OneByJorah)
+- [info@jorahone.com](mailto:info@jorahone.com)
